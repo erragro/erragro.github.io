@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects &#183; Surajit Chaudhuri</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="home" href="index.html">Surajit Chaudhuri</a>
+    <div class="tabs">
+      <a href="projects.html" class="active">Projects</a>
+      <a href="work.html">Work</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="page-head">
+  <h1>Projects</h1>
+  <div class="tag">
+    <p>All personal, all built solo and end to end. Tap a card for the hard part.</p>
+  </div>
+</div>
+
+<main>
+  <div class="flipgrid">
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">01</div>
+          <h3>QuickBites Support Bot</h3>
+          <div class="sub">A support agent built and tuned against an automated grader</div>
+          <div class="stack">
+            <span>FastAPI</span><span>PostgreSQL</span><span>Anthropic / Gemini</span><span>pytest</span><span>Cloud Run</span>
+          </div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>Where the LLM stops</h3>
+          <div class="txt">
+            <p>A simulator plays an escalating customer and a grader scores the
+            transcript on six criteria. My one-prompt version <strong>drifted on
+            refund amounts</strong>, <strong>caved to "do it now" pressure</strong>,
+            and <strong>dropped paired actions</strong>.</p>
+            <p>Fix: one FastAPI handler runs a deterministic pre-pipeline into
+            classify &rarr; propose &rarr; <strong>enforce in plain Python with
+            about 60 tests</strong> &rarr; respond. The model proposes intent and
+            confidence, nothing that moves money. Provider-agnostic LLM layer, one
+            env var to swap Anthropic and Gemini.</p>
+          </div>
+          <div class="plinks"><a href="https://github.com/erragro/quickbites-bot">github.com/erragro/quickbites-bot</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">02</div>
+          <h3>Sreshtha</h3>
+          <div class="sub">Contract analysis for India's gig workers</div>
+          <div class="stack">
+            <span>FastAPI</span><span>React 19</span><span>Gemini / Vertex AI</span><span>Sarvam Mayura</span><span>EasyOCR</span>
+          </div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>Reason in English, translate at the edge</h3>
+          <div class="txt">
+            <p>Three Gemini 2.5 Flash stages annotate the contract against Indian
+            labour law in English, where precedent density is highest, then Sarvam
+            Mayura translates the finished text into one of seven languages.</p>
+            <p>An <strong>Aho-Corasick idiom library</strong> (about 200
+            microseconds per scan) swaps known idioms for placeholder tokens
+            before translation and splices curated equivalents back after.
+            Batching clauses per call cut a run from <strong>11 minutes to under
+            one</strong>. In-house OCR keeps worker documents on my infra.</p>
+          </div>
+          <div class="plinks">
+            <a href="https://erragro.github.io/sreshtha-blog/">write-up</a> &nbsp;&#183;&nbsp;
+            <a href="https://github.com/erragro/sreshtha">source</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">03</div>
+          <h3>OpenAI Parameter Golf</h3>
+          <div class="sub">A tokenizer experiment for OpenAI's model-training challenge</div>
+          <div class="stack"><span>PyTorch</span><span>SentencePiece</span><span>8xH100</span><span>MLX</span></div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>A semantic BPE tokenizer</h3>
+          <div class="txt">
+            <p>Hypothesis: standard BPE wastes vocabulary on low-entropy function
+            words. I trained a SentencePiece BPE that <strong>downsamples function
+            words</strong>, then ran a seed-locked, architecture-identical A/B
+            against the SOTA config so only the tokenizer changed.</p>
+            <p>Also fixed a PyTorch 2.4 / 2.5 break in the reference trainer:
+            <strong>enable_gqa</strong> in scaled-dot-product attention, swapped
+            for manual KV-head expansion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">04</div>
+          <h3>Auralis</h3>
+          <div class="sub">Full-stack CX operations platform (retired)</div>
+          <div class="stack"><span>FastAPI</span><span>React 19</span><span>pgvector</span><span>Celery</span><span>GKE</span></div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>The full pattern in one system</h3>
+          <div class="txt">
+            <p>Policy written as markdown, compiled by an LLM into structured
+            rules, <strong>simulated against sample tickets and shadow-run</strong>
+            before going live, then served from a vector store at resolution time.
+            Five-phase deterministic ingestion, per-module RBAC, OAuth.</p>
+            <p>Ran on GKE with Dockerised services, nginx ingress, cert-manager
+            TLS, GitHub Actions CI/CD and OpenTelemetry. Deployment retired, but
+            it is the most complete build of this idea I have done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">05</div>
+          <h3>Google-ADK agents</h3>
+          <div class="sub">Two agents on Cloud Run, plus a bug in Google's codelab</div>
+          <div class="stack"><span>Google ADK</span><span>Gemini</span><span>MCP</span><span>Cloud Run</span><span>BigQuery</span></div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>A silently-dropped guardrail</h3>
+          <div class="txt">
+            <p>Building a BigQuery-MCP agent I found a real bug in Google's
+            published codelab: <strong>tool_filter was passed to the wrong
+            constructor</strong> and silently dropped, which left a non-readonly
+            <strong>execute_sql</strong> tool exposed to the model.</p>
+            <p>Verified it live against the deployed revision, moved the argument
+            to the right place, and re-verified that only the four intended tools
+            were reachable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip reveal" data-dir="scale">
+      <div class="flip-inner">
+        <div class="flip-face flip-front">
+          <span class="bar"></span>
+          <div class="ghost" aria-hidden="true">06</div>
+          <h3>Crickverse / Cricket Life RPG</h3>
+          <div class="sub">A deterministic cricket game engine</div>
+          <div class="stack"><span>Python</span><span>TypeScript</span><span>Unity 6 URP</span><span>Vitest</span><span>Blender</span></div>
+          <span class="flip-cta">&#8635; the hard part</span>
+        </div>
+        <div class="flip-face flip-back">
+          <h3>Engine decides, model narrates</h3>
+          <div class="txt">
+            <p>An event-sourced cricket core in Python and a <strong>pure
+            deterministic TypeScript match engine</strong> (no I/O, Vitest)
+            feeding a Unity 6 URP client with a Blender / MakeHuman character
+            pipeline.</p>
+            <p>The engine resolves every delivery. The LLM is a paid commentary
+            layer only, and free players make zero model calls.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="sec reveal">Before that</h2>
+  <div class="pcard reveal">
+    <p>Local-model tooling before it was convenient: llama.cpp, GPT4All, Stable
+    Diffusion and ComfyUI, YOLOv5, speaker-embedding and TTS pipelines, MLX on
+    Apple Silicon. Plus geospatial work, KML/KMZ processing and GeoJSON.</p>
+  </div>
+</main>
+
+<footer><div class="wrap">Static site, no build step. Source: github.com/erragro</div></footer>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surajit Chaudhuri</title>
+<meta name="description" content="Full-stack AI engineer. The model proposes, the code decides.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .hero {
+    position: relative; min-height: calc(100vh - 58px);
+    display: flex; align-items: center; overflow: hidden; isolation: isolate;
+  }
+  .hero .layer { position: absolute; inset: -25% -12%; z-index: -1; pointer-events: none; will-change: transform; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(64px); opacity: 0.55; }
+  .blob.a { width: 46vw; height: 46vw; left: -8vw; top: -6vw; background: radial-gradient(circle at 30% 30%, #2b6cb0, transparent 70%); }
+  .blob.b { width: 40vw; height: 40vw; right: -6vw; top: 18vh; background: radial-gradient(circle at 60% 40%, #6b46c1, transparent 70%); }
+  .blob.c { width: 34vw; height: 34vw; left: 22vw; bottom: -16vw; background: radial-gradient(circle at 50% 50%, #2c7a7b, transparent 70%); }
+  @media (prefers-color-scheme: light) {
+    .blob { opacity: 0.3; }
+    .blob.a { background: radial-gradient(circle at 30% 30%, #90cdf4, transparent 70%); }
+    .blob.b { background: radial-gradient(circle at 60% 40%, #d6bcfa, transparent 70%); }
+    .blob.c { background: radial-gradient(circle at 50% 50%, #9decdb, transparent 70%); }
+  }
+  .grid-layer {
+    position: absolute; inset: -25% -25%; z-index: -1; pointer-events: none; will-change: transform;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 46px 46px; opacity: 0.5;
+    -webkit-mask-image: radial-gradient(ellipse 72% 60% at 50% 42%, #000 30%, transparent 82%);
+    mask-image: radial-gradient(ellipse 72% 60% at 50% 42%, #000 30%, transparent 82%);
+  }
+  .hero-inner { position: relative; z-index: 1; padding: 40px 0 90px; }
+  .eyebrow { font-family: var(--mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(34px, 7.4vw, 70px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 760; }
+  .hero h1 .dim { color: var(--text-faint); display: block; }
+  .hero .sub { margin-top: 24px; max-width: 54ch; font-size: clamp(16px, 2.1vw, 19px); color: var(--text-dim); }
+  .hero .cta { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 13.5px; padding: 11px 18px; border-radius: 8px; border: 1px solid var(--border); color: var(--text); background: var(--bg-soft); transition: border-color .2s, color .2s, transform .2s; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; transform: translateY(-2px); }
+  .btn.primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+  .btn.primary:hover { color: var(--ink); filter: brightness(1.08); }
+  .scroll-hint { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--text-faint); text-transform: uppercase; }
+  .scroll-hint::after { content: ""; display: block; width: 1px; height: 34px; margin: 10px auto 0; background: linear-gradient(var(--text-faint), transparent); }
+
+  .band { padding: 78px 0; border-bottom: 1px solid var(--border); }
+  .band .kicker { font-family: var(--mono); font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .band h2 { font-size: clamp(22px, 3.4vw, 30px); color: var(--text); letter-spacing: -0.02em; font-weight: 680; margin: 0 0 6px; }
+  .band p.note { color: var(--text-dim); font-size: 15.5px; max-width: 60ch; }
+
+  .pipe-wrap { margin-top: 34px; overflow-x: auto; }
+  .pipe-wrap svg { display: block; min-width: 640px; width: 100%; height: auto; }
+
+  .game-grid { margin-top: 34px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; }
+  .game-grid svg { display: block; width: 100%; height: auto; }
+  .outs { display: flex; flex-direction: column; gap: 14px; }
+  .out { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); background: var(--bg-soft); }
+  .out .lab { color: var(--text-faint); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .out .val { color: var(--text); margin-top: 5px; font-size: 13.5px; }
+  .out.engine { border-color: var(--accent); }
+  .out.engine .lab { color: var(--accent); }
+  .out.llm { border-style: dashed; }
+  .out.llm .val { color: var(--text-dim); font-style: italic; }
+  .game-foot { margin-top: 22px; font-family: var(--mono); font-size: 12.5px; color: var(--text-faint); }
+  @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="home" href="index.html">Surajit Chaudhuri</a>
+    <div class="tabs">
+      <a href="projects.html">Projects</a>
+      <a href="work.html">Work</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="layer" data-parallax="0.15" data-mouse="20"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+  <div class="grid-layer" data-parallax="0.05" data-mouse="-9"></div>
+
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Full-stack AI engineer &nbsp;/&nbsp; game builder</div>
+    <h1>The model proposes.<span class="dim">The code decides.</span></h1>
+    <p class="sub">
+      I build production AI systems where an LLM runs only where natural-language
+      judgment is unavoidable. Everything that can be deterministic is, and the
+      boundary between the two is tested.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="projects.html">See the projects</a>
+      <a class="btn" href="work.html">Work history</a>
+      <a class="btn" href="mailto:surajit.chaudhuri.95@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="kicker reveal">the shape of the work</div>
+    <h2 class="reveal">Every system I build looks like this</h2>
+    <p class="note reveal">
+      A deterministic spine does the work that can be specified. The model is one
+      stage in the middle: it reads intent and proposes, then plain code enforces
+      the parts that carry consequences, before anything is said back.
+    </p>
+    <div class="pipe-wrap reveal" data-dir="scale">
+      <svg viewBox="0 0 1240 260" role="img" aria-label="Pipeline: request, validate, dedupe, enrich, LLM proposes, code enforces, response">
+        <defs>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <line x1="95" y1="118" x2="1145" y2="118" stroke="var(--border)" stroke-width="2"/>
+        <g font-family="var(--mono)" font-size="15" fill="var(--text-dim)" text-anchor="middle">
+          <g><rect x="20" y="88" width="150" height="60" rx="9" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1.5"/><text x="95" y="123">request</text></g>
+          <g><rect x="195" y="88" width="150" height="60" rx="9" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1.5"/><text x="270" y="123">validate</text></g>
+          <g><rect x="370" y="88" width="150" height="60" rx="9" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1.5"/><text x="445" y="123">dedupe</text></g>
+          <g><rect x="545" y="88" width="150" height="60" rx="9" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1.5"/><text x="620" y="123">enrich</text></g>
+        </g>
+        <g>
+          <rect x="720" y="82" width="150" height="72" rx="9" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="795" y="112" font-family="var(--mono)" font-size="15" fill="var(--accent)" text-anchor="middle">LLM</text>
+          <text x="795" y="132" font-family="var(--mono)" font-size="12" fill="var(--text-faint)" text-anchor="middle">proposes</text>
+          <text x="795" y="182" font-family="var(--mono)" font-size="11.5" fill="var(--text-faint)" text-anchor="middle">intent &#183; reasoning</text>
+          <text x="795" y="198" font-family="var(--mono)" font-size="11.5" fill="var(--text-faint)" text-anchor="middle">confidence</text>
+        </g>
+        <g>
+          <rect x="895" y="82" width="150" height="72" rx="9" fill="var(--accent)"/>
+          <text x="970" y="112" font-family="var(--mono)" font-size="15" fill="var(--ink)" text-anchor="middle">enforce</text>
+          <text x="970" y="132" font-family="var(--mono)" font-size="12" fill="var(--ink)" text-anchor="middle" opacity="0.72">plain code</text>
+          <text x="970" y="182" font-family="var(--mono)" font-size="11.5" fill="var(--text-faint)" text-anchor="middle">amounts &#183; rules</text>
+          <text x="970" y="198" font-family="var(--mono)" font-size="11.5" fill="var(--text-faint)" text-anchor="middle">routing &#183; ~60 tests</text>
+        </g>
+        <g><rect x="1070" y="88" width="150" height="60" rx="9" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1.5"/><text x="1145" y="123" font-family="var(--mono)" font-size="15" fill="var(--text-dim)" text-anchor="middle">response</text></g>
+        <circle r="6" fill="var(--accent)" filter="url(#glow)">
+          <animateMotion path="M 95 118 H 1145" dur="4.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.06;0.5;0.94;1" dur="4.2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="kicker reveal">the same idea, off the clock</div>
+    <h2 class="reveal">A cricket RPG built on the same rule</h2>
+    <p class="note reveal">
+      I am building a career-mode cricket game for mobile. A deterministic match
+      engine resolves every delivery from footwork, shot and timing. The language
+      model never touches the outcome. It sits on top as a paid commentary layer,
+      and free players make zero model calls.
+    </p>
+    <div class="game-grid reveal" data-dir="left">
+      <svg viewBox="0 0 460 300" role="img" aria-label="A cricket delivery travelling from bowler to batter along a fixed arc">
+        <defs>
+          <linearGradient id="pitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg-soft)"/><stop offset="1" stop-color="var(--border)"/></linearGradient>
+          <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <polygon points="200,26 260,26 340,274 120,274" fill="url(#pitch)" stroke="var(--border)" stroke-width="1.5"/>
+        <line x1="205" y1="70" x2="255" y2="70" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
+        <line x1="140" y1="250" x2="320" y2="250" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
+        <g stroke="var(--text-dim)" stroke-width="3" stroke-linecap="round"><line x1="222" y1="20" x2="222" y2="34"/><line x1="230" y1="20" x2="230" y2="34"/><line x1="238" y1="20" x2="238" y2="34"/></g>
+        <g stroke="var(--text-dim)" stroke-width="4" stroke-linecap="round"><line x1="212" y1="270" x2="212" y2="292"/><line x1="224" y1="270" x2="224" y2="292"/><line x1="236" y1="270" x2="236" y2="292"/></g>
+        <path id="ballpath" d="M 230 36 Q 250 150 214 262" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 6" opacity="0.45"/>
+        <circle r="6.5" fill="var(--accent)" filter="url(#glow2)">
+          <animateMotion dur="2.6s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.7 1"><mpath href="#ballpath"/></animateMotion>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="214" cy="262" r="5" fill="var(--text-dim)"/>
+      </svg>
+      <div class="outs">
+        <div class="out engine"><div class="lab">engine decides</div><div class="val">cover drive &#183; 4 runs &#183; timing 0.91 &#183; edge 0.0</div></div>
+        <div class="out llm"><div class="lab">llm narrates</div><div class="val">"Leans into it, and that is sublime. Nobody moves."</div></div>
+      </div>
+    </div>
+    <div class="game-foot reveal">Unity 6 URP &nbsp;&#183;&nbsp; Python + TypeScript engine &nbsp;&#183;&nbsp; Blender character pipeline</div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <h2 class="sec reveal">Start here</h2>
+    <div class="navcards">
+      <a class="navcard reveal" href="projects.html">
+        <div class="t">Projects</div>
+        <div class="d">The support bot tuned against a grader, Sreshtha, the OpenAI Parameter Golf contribution, and more.</div>
+      </a>
+      <a class="navcard reveal" href="work.html">
+        <div class="t">Work</div>
+        <div class="d">Flipkart, and seven years at Swiggy building decision engines and an in-house AI QA engine.</div>
+      </a>
+      <a class="navcard reveal" href="profile.html">
+        <div class="t">Profile</div>
+        <div class="d">Skills, environment, education, and what I build outside the day job.</div>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap">Static site, no build step. Source: github.com/erragro</div></footer>
+<script src="site.js"></script>
+</body>
+</html>
