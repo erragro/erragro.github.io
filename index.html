@@ -54,6 +54,7 @@
 
   .game-grid { margin-top: 34px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; align-items: center; }
   .game-grid svg { display: block; width: 100%; height: auto; }
+  @media (prefers-reduced-motion: reduce) { .cricket .ball { opacity: 0.85 !important; } }
   .outs { display: flex; flex-direction: column; gap: 14px; }
   .out { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); background: var(--bg-soft); }
   .out .lab { color: var(--text-faint); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -158,22 +159,78 @@
       and free players make zero model calls.
     </p>
     <div class="game-grid reveal" data-dir="left">
-      <svg viewBox="0 0 460 300" role="img" aria-label="A cricket delivery travelling from bowler to batter along a fixed arc">
+      <svg viewBox="0 150 480 146" class="cricket" role="img" aria-label="A stick-figure batter steps out and plays a cover drive for four">
         <defs>
-          <linearGradient id="pitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg-soft)"/><stop offset="1" stop-color="var(--border)"/></linearGradient>
-          <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
-        <polygon points="200,26 260,26 340,274 120,274" fill="url(#pitch)" stroke="var(--border)" stroke-width="1.5"/>
-        <line x1="205" y1="70" x2="255" y2="70" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
-        <line x1="140" y1="250" x2="320" y2="250" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
-        <g stroke="var(--text-dim)" stroke-width="3" stroke-linecap="round"><line x1="222" y1="20" x2="222" y2="34"/><line x1="230" y1="20" x2="230" y2="34"/><line x1="238" y1="20" x2="238" y2="34"/></g>
-        <g stroke="var(--text-dim)" stroke-width="4" stroke-linecap="round"><line x1="212" y1="270" x2="212" y2="292"/><line x1="224" y1="270" x2="224" y2="292"/><line x1="236" y1="270" x2="236" y2="292"/></g>
-        <path id="ballpath" d="M 230 36 Q 250 150 214 262" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 6" opacity="0.45"/>
-        <circle r="6.5" fill="var(--accent)" filter="url(#glow2)">
-          <animateMotion dur="2.6s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.7 1"><mpath href="#ballpath"/></animateMotion>
-          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" repeatCount="indefinite"/>
+
+        <!-- ground + pitch + boundary rope -->
+        <line x1="0" y1="250" x2="480" y2="250" stroke="var(--border)" stroke-width="2"/>
+        <rect x="118" y="246" width="326" height="6" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1"/>
+        <line x1="16" y1="198" x2="16" y2="255" stroke="var(--text-faint)" stroke-width="2" opacity="0.5"/>
+
+        <!-- stumps -->
+        <g stroke="var(--text-dim)" stroke-width="2.4" stroke-linecap="round">
+          <line x1="120" y1="232" x2="120" y2="250"/><line x1="125" y1="232" x2="125" y2="250"/><line x1="130" y1="232" x2="130" y2="250"/>
+        </g>
+        <g stroke="var(--text-dim)" stroke-width="2.4" stroke-linecap="round">
+          <line x1="436" y1="232" x2="436" y2="250"/><line x1="441" y1="232" x2="441" y2="250"/><line x1="446" y1="232" x2="446" y2="250"/>
+        </g>
+
+        <!-- shot direction (fades in on contact) -->
+        <line x1="182" y1="222" x2="24" y2="245" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 6" opacity="0">
+          <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.55;0.6;0.9;1" values="0;0;0.4;0.4;0"/>
+        </line>
+
+        <!-- BOWLER (right side, delivering to the left) -->
+        <g stroke="var(--text-dim)" stroke-width="2.4" fill="none" stroke-linecap="round">
+          <circle cx="438" cy="193" r="6.5" fill="var(--text-dim)" stroke="none"/>
+          <line x1="438" y1="200" x2="440" y2="225"/>
+          <line x1="440" y1="225" x2="446" y2="250"/>
+          <line x1="440" y1="225" x2="432" y2="250"/>
+          <line x1="438" y1="205" x2="446" y2="214"/>
+          <g>
+            <line x1="438" y1="204" x2="438" y2="185"/>
+            <animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite"
+              keyTimes="0;0.04;0.14;0.22;0.3;1"
+              values="-25 438 204;-25 438 204;150 438 204;-35 438 204;-25 438 204;-25 438 204"/>
+          </g>
+        </g>
+
+        <!-- BATTER (left-centre, playing the cover drive) -->
+        <g stroke="var(--text)" stroke-width="2.6" fill="none" stroke-linecap="round">
+          <circle cx="150" cy="184" r="6.5" fill="var(--text)" stroke="none"/>
+          <line x1="150" y1="190" x2="149" y2="219"/>
+          <line x1="149" y1="219" x2="142" y2="250"/>
+          <g>
+            <line x1="149" y1="219" x2="157" y2="250"/>
+            <animateTransform attributeName="transform" type="translate" dur="4s" repeatCount="indefinite"
+              keyTimes="0;0.3;0.52;0.72;0.95;1" values="0 0;0 0;12 0;12 0;0 0;0 0"/>
+          </g>
+          <g transform="rotate(-30 156 210)">
+            <line x1="150" y1="194" x2="156" y2="210"/>
+            <line x1="150" y1="201" x2="156" y2="210"/>
+            <line x1="156" y1="207" x2="157" y2="214" stroke-width="2.4"/>
+            <line x1="157" y1="214" x2="160" y2="241" stroke-width="5" stroke-linecap="square"/>
+            <animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite"
+              keyTimes="0;0.24;0.42;0.55;0.66;0.82;0.95;1"
+              values="0 156 210;0 156 210;46 156 210;-58 156 210;-82 156 210;-82 156 210;0 156 210;0 156 210"/>
+          </g>
+        </g>
+
+        <!-- BALL -->
+        <circle class="ball" cx="180" cy="222" r="4.5" fill="var(--accent)" filter="url(#glow2)" opacity="0">
+          <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
+            keyTimes="0;0.2;0.24;0.74;0.82;1" values="0;0;1;1;0;0"/>
+          <animateMotion dur="4s" repeatCount="indefinite" calcMode="linear"
+            path="M 428 193 Q 300 205 180 222 L 18 246"
+            keyPoints="0;0;0.62;1;1" keyTimes="0;0.22;0.55;0.76;1"/>
         </circle>
-        <circle cx="214" cy="262" r="5" fill="var(--text-dim)"/>
+
+        <!-- FOUR -->
+        <text x="30" y="188" font-family="var(--mono)" font-size="19" font-weight="700" fill="var(--accent)" opacity="0">4
+          <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.72;0.78;0.92;1" values="0;0;1;1;0"/>
+        </text>
       </svg>
       <div class="outs">
         <div class="out engine"><div class="lab">engine decides</div><div class="val">cover drive &#183; 4 runs &#183; timing 0.91 &#183; edge 0.0</div></div>
