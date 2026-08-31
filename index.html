@@ -159,76 +159,78 @@
       and free players make zero model calls.
     </p>
     <div class="game-grid reveal" data-dir="left">
-      <svg viewBox="0 150 480 146" class="cricket" role="img" aria-label="A stick-figure batter steps out and plays a cover drive for four">
+      <svg viewBox="0 0 380 300" class="cricket" role="img" aria-label="Top-down view: a stick-figure batter plays a cover drive and the ball races away for four">
         <defs>
-          <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="pitchg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--bg-soft)"/><stop offset="1" stop-color="var(--border)"/></linearGradient>
+          <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         </defs>
 
-        <!-- ground + pitch + boundary rope -->
-        <line x1="0" y1="250" x2="480" y2="250" stroke="var(--border)" stroke-width="2"/>
-        <rect x="118" y="246" width="326" height="6" fill="var(--bg-soft)" stroke="var(--border)" stroke-width="1"/>
-        <line x1="16" y1="198" x2="16" y2="255" stroke="var(--text-faint)" stroke-width="2" opacity="0.5"/>
+        <!-- boundary arc (off side) -->
+        <path d="M 8 54 Q -12 160 42 282" fill="none" stroke="var(--text-faint)" stroke-width="2" opacity="0.4"/>
 
-        <!-- stumps -->
-        <g stroke="var(--text-dim)" stroke-width="2.4" stroke-linecap="round">
-          <line x1="120" y1="232" x2="120" y2="250"/><line x1="125" y1="232" x2="125" y2="250"/><line x1="130" y1="232" x2="130" y2="250"/>
+        <!-- pitch in perspective: far end narrow (top), near end wide (bottom) -->
+        <polygon points="160,24 214,24 274,286 104,286" fill="url(#pitchg)" stroke="var(--border)" stroke-width="1.5"/>
+        <line x1="166" y1="66" x2="208" y2="66" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
+        <line x1="128" y1="248" x2="252" y2="248" stroke="var(--text-faint)" stroke-width="1" opacity="0.5"/>
+
+        <!-- stumps: far (small), near (large) -->
+        <g stroke="var(--text-dim)" stroke-width="2" stroke-linecap="round">
+          <line x1="183" y1="18" x2="183" y2="28"/><line x1="187" y1="18" x2="187" y2="28"/><line x1="191" y1="18" x2="191" y2="28"/>
         </g>
-        <g stroke="var(--text-dim)" stroke-width="2.4" stroke-linecap="round">
-          <line x1="436" y1="232" x2="436" y2="250"/><line x1="441" y1="232" x2="441" y2="250"/><line x1="446" y1="232" x2="446" y2="250"/>
+        <g stroke="var(--text-dim)" stroke-width="3" stroke-linecap="round">
+          <line x1="182" y1="284" x2="182" y2="300"/><line x1="189" y1="284" x2="189" y2="300"/><line x1="196" y1="284" x2="196" y2="300"/>
         </g>
 
         <!-- shot direction (fades in on contact) -->
-        <line x1="182" y1="222" x2="24" y2="245" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 6" opacity="0">
-          <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.55;0.6;0.9;1" values="0;0;0.4;0.4;0"/>
+        <line x1="176" y1="242" x2="18" y2="220" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 6" opacity="0">
+          <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.55;0.6;0.9;1" values="0;0;0.42;0.42;0"/>
         </line>
 
-        <!-- BOWLER (right side, delivering to the left) -->
-        <g stroke="var(--text-dim)" stroke-width="2.4" fill="none" stroke-linecap="round">
-          <circle cx="438" cy="193" r="6.5" fill="var(--text-dim)" stroke="none"/>
-          <line x1="438" y1="200" x2="440" y2="225"/>
-          <line x1="440" y1="225" x2="446" y2="250"/>
-          <line x1="440" y1="225" x2="432" y2="250"/>
-          <line x1="438" y1="205" x2="446" y2="214"/>
+        <!-- BOWLER (far end, small) -->
+        <g stroke="var(--text-dim)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <circle cx="188" cy="16" r="4" fill="var(--text-dim)" stroke="none"/>
+          <line x1="188" y1="20" x2="189" y2="34"/>
+          <line x1="189" y1="34" x2="184" y2="46"/>
+          <line x1="189" y1="34" x2="194" y2="46"/>
           <g>
-            <line x1="438" y1="204" x2="438" y2="185"/>
+            <line x1="188" y1="23" x2="188" y2="12"/>
             <animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite"
-              keyTimes="0;0.04;0.14;0.22;0.3;1"
-              values="-25 438 204;-25 438 204;150 438 204;-35 438 204;-25 438 204;-25 438 204"/>
+              keyTimes="0;0.04;0.13;0.2;0.28;1"
+              values="20 188 23;20 188 23;205 188 23;-8 188 23;20 188 23;20 188 23"/>
           </g>
         </g>
 
-        <!-- BATTER (left-centre, playing the cover drive) -->
-        <g stroke="var(--text)" stroke-width="2.6" fill="none" stroke-linecap="round">
-          <circle cx="150" cy="184" r="6.5" fill="var(--text)" stroke="none"/>
-          <line x1="150" y1="190" x2="149" y2="219"/>
-          <line x1="149" y1="219" x2="142" y2="250"/>
+        <!-- BATTER (near end, larger; strides in and drives through the covers) -->
+        <g stroke="var(--text)" stroke-width="2.4" fill="none" stroke-linecap="round">
+          <circle cx="174" cy="210" r="6" fill="var(--text)" stroke="none"/>
+          <line x1="174" y1="216" x2="174" y2="242"/>
+          <line x1="174" y1="242" x2="166" y2="266"/>
           <g>
-            <line x1="149" y1="219" x2="157" y2="250"/>
+            <line x1="174" y1="242" x2="183" y2="266"/>
             <animateTransform attributeName="transform" type="translate" dur="4s" repeatCount="indefinite"
-              keyTimes="0;0.3;0.52;0.72;0.95;1" values="0 0;0 0;12 0;12 0;0 0;0 0"/>
+              keyTimes="0;0.3;0.52;0.72;0.95;1" values="0 0;0 0;1 -12;1 -12;0 0;0 0"/>
           </g>
-          <g transform="rotate(-30 156 210)">
-            <line x1="150" y1="194" x2="156" y2="210"/>
-            <line x1="150" y1="201" x2="156" y2="210"/>
-            <line x1="156" y1="207" x2="157" y2="214" stroke-width="2.4"/>
-            <line x1="157" y1="214" x2="160" y2="241" stroke-width="5" stroke-linecap="square"/>
+          <g transform="rotate(0 183 228)">
+            <line x1="174" y1="218" x2="183" y2="228"/>
+            <line x1="177" y1="224" x2="183" y2="228"/>
+            <line x1="183" y1="228" x2="185" y2="252" stroke-width="4.5" stroke-linecap="square"/>
             <animateTransform attributeName="transform" type="rotate" dur="4s" repeatCount="indefinite"
               keyTimes="0;0.24;0.42;0.55;0.66;0.82;0.95;1"
-              values="0 156 210;0 156 210;46 156 210;-58 156 210;-82 156 210;-82 156 210;0 156 210;0 156 210"/>
+              values="0 183 228;0 183 228;-25 183 228;100 183 228;122 183 228;122 183 228;0 183 228;0 183 228"/>
           </g>
         </g>
 
-        <!-- BALL -->
-        <circle class="ball" cx="180" cy="222" r="4.5" fill="var(--accent)" filter="url(#glow2)" opacity="0">
-          <animate attributeName="opacity" dur="4s" repeatCount="indefinite"
-            keyTimes="0;0.2;0.24;0.74;0.82;1" values="0;0;1;1;0;0"/>
-          <animateMotion dur="4s" repeatCount="indefinite" calcMode="linear"
-            path="M 428 193 Q 300 205 180 222 L 18 246"
-            keyPoints="0;0;0.62;1;1" keyTimes="0;0.22;0.55;0.76;1"/>
+        <!-- BALL (base position visible even without animation) -->
+        <circle class="ball" cx="182" cy="150" r="4" fill="var(--accent)" filter="url(#glow2)">
+          <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.8;0.86;0.97;1" values="1;1;0;0;1"/>
+          <animate attributeName="cx" dur="4s" repeatCount="indefinite" keyTimes="0;0.2;0.4;0.55;0.68;0.78;1"
+            values="188;188;191;178;95;14;14"/>
+          <animate attributeName="cy" dur="4s" repeatCount="indefinite" keyTimes="0;0.2;0.4;0.55;0.68;0.78;1"
+            values="30;30;135;242;235;222;222"/>
         </circle>
 
         <!-- FOUR -->
-        <text x="30" y="188" font-family="var(--mono)" font-size="19" font-weight="700" fill="var(--accent)" opacity="0">4
+        <text x="22" y="204" font-family="var(--mono)" font-size="18" font-weight="700" fill="var(--accent)" opacity="0">4
           <animate attributeName="opacity" dur="4s" repeatCount="indefinite" keyTimes="0;0.72;0.78;0.92;1" values="0;0;1;1;0"/>
         </text>
       </svg>
