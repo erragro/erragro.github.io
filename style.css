@@ -122,12 +122,13 @@ h2.sec:first-child { margin-top: 8px; }
 .flip { position: relative; transition: transform .25s ease; transform-style: preserve-3d; }
 .flip-inner {
   position: relative; width: 100%; min-height: 264px; height: 100%;
+  display: grid;
   transition: transform .62s cubic-bezier(.2,.7,.2,1);
   transform-style: preserve-3d;
 }
 .flip.flipped .flip-inner { transform: rotateY(180deg); }
 .flip-face {
-  position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  grid-area: 1 / 1; min-width: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
   border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card);
   padding: 22px; display: flex; flex-direction: column; overflow: hidden;
 }
@@ -197,6 +198,7 @@ h2.sec:first-child { margin-top: 8px; }
 .flip-back { transform: rotateY(180deg); }
 .flip-back h3 { font-size: 15px; font-weight: 640; margin-bottom: 8px; }
 .flip-back .txt { color: var(--text-dim); font-size: 13.5px; line-height: 1.62; overflow-y: auto; }
+.flip-back .txt p + p { margin-top: 10px; }
 .flip-back .txt strong { color: var(--text); font-weight: 620; }
 .flip-back .plinks { margin-top: 12px; font-family: var(--mono); font-size: 12.5px; }
 
